@@ -65,7 +65,7 @@ class LOGIN(LoginView):
 
 class LOGOUT(LogoutView):
 
-	template_name = 'logout.html'
+	pass
 
 def password_reset_form (request):
     if request.method =='GET':
