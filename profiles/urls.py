@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import dashboard,Edit_Profile,change_password
+from .views import dashboard,Edit_Profile,change_password,change_password_done
 
 urlpatterns = [
     path("dashboard",dashboard.as_view(),name="dashboard"),
@@ -8,6 +8,10 @@ urlpatterns = [
     path("Edit_Profile/<int:pk>",Edit_Profile.as_view(),name="Edit_Profile"),
 
     path("change_password",change_password.as_view(),name="change_password"),
+
+    path("change_password_done20212",change_password_done.as_view(),name="change_password_done"),
+
+
 
 
 

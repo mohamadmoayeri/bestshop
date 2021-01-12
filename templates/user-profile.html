@@ -11,14 +11,17 @@
 					<div class="widget user">
 						<!-- User Image -->
 						<div class="image d-flex justify-content-center">
-							<img src="images/user/user-thumb.jpg" alt="" class="">
+					   
+							<img src="{{person.avatar.url}}" alt="" class="">
 						</div>
 						<!-- User Name -->
-						<h5 class="text-center">Samanta Doe</h5>
+						<h5 class="text-center">{{person.first_name}} {{person.last_name}}</h5>
+					   
 					</div>
 					<!-- Dashboard Links -->
 					<div class="widget dashboard-links">
 						<ul>
+						    <li><a class="my-1 d-inline-block" href="{% url 'change_password' %}">Change Password</a></li>
 							<li><a class="my-1 d-inline-block" href="">Savings Dashboard</a></li>
 							<li><a class="my-1 d-inline-block" href="">Saved Offer <span>(5)</span></a></li>
 							<li><a class="my-1 d-inline-block" href="">Favourite Stores <span>(3)</span></a></li>
@@ -88,9 +91,13 @@
 					<div class="col-lg-6 col-md-6">
 						<!-- Change Password -->
 					<div class="widget change-password">
-						<h3 class="widget-header user">Edit Password</h3>
-						<form method="post" action="{% url 'change_password' %}" enctype="multipart/form-data">{% csrf_token %}
-                            {{form.as_p}}
+						<h3 class="widget-header user">Change Profile Photo</h3>
+						<form method="post" action="{% url 'Edit_Profile' user.id %}" enctype="multipart/form-data">{% csrf_token %}
+                            {% if person.avatar.url %}
+                               <img src="{{person.avatar.url}}"  onerror=this.src="/static/images/no.png"  class="rounded-circle" width="150" height="150" /><br/>
+                            {% endif %}
+                            {{form.image_tag}}
+							<input type="submit" class="btn btn-transparent" value="Save My Changes">
 						</form>
 					</div>
 					</div>

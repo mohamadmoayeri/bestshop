@@ -12,6 +12,8 @@ import re
 
 import uuid
 
+from django.utils.html import mark_safe
+
 def VALID(value):
 
   x=re.match('^09\d{9}$',value)
@@ -36,6 +38,10 @@ class User(AbstractUser):
     def __str__(self):
         
         return self.username
+    def image_tag(self):
+
+      return mark_safe('<img src="%s"  onerror=this.src="/static/images/no.png"  class="rounded-circle" width="150" height="150" /><br/>'%(self.avatar.url))
+    image_tag.short_description='avatar'
 
 
 
