@@ -40,7 +40,7 @@ class User(AbstractUser):
         return self.username
     def image_tag(self):
 
-      return mark_safe('<img src="%s"  onerror=this.src="/static/images/no.png"  class="rounded-circle" width="150" height="150" /><br/>'%(self.avatar.url))
+      return mark_safe('<img src="%s"  onerror=this.src="/static/images/no.png"  class="rounded-circle" width="150" height="150" /><br/>'%(self.avatar))
     image_tag.short_description='avatar'
 
 
