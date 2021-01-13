@@ -14,6 +14,6 @@ class  CustomUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(User,CustomUserAdmin,list_display=['image_tag'],)
+admin.site.register(User,CustomUserAdmin,list_display=['username','image_tag'],)
 
 admin.site.register(ads)

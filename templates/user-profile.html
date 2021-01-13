@@ -12,9 +12,10 @@
 						<!-- User Image -->
 						<div class="image d-flex justify-content-center">
 					   
-							<img src="{{person.avatar.url}}" alt="" class="">
+							{{person.image_tag}}
 						</div>
 						<!-- User Name -->
+						<a href="{% url "delete_avatar" user.id %}">&nbsp&nbsp&nbspRemove Current Photo</a>
 						<h5 class="text-center">{{person.first_name}} {{person.last_name}}</h5>
 					   
 					</div>
@@ -41,8 +42,14 @@
 					<div class="col-lg-6 col-md-6">
 						<div class="widget personal-info">
 							<h3 class="widget-header user">Edit Personal Information</h3>
+
+						
 							<form method="post" action="{% url 'Edit_Profile' user.id %}" enctype="multipart/form-data">{% csrf_token %}
-								
+							    <div class="form-group">  
+								 {{form.avatar.label|title}}<br/>
+								 {{form.avatar}}<br/>
+								</div>
+							
 								<!-- username -->
 								<div class="form-group">
 								   {{form.username.label|title}}<br/>
@@ -91,12 +98,11 @@
 					<div class="col-lg-6 col-md-6">
 						<!-- Change Password -->
 					<div class="widget change-password">
+				    {% load widget_tweaks %}
 						<h3 class="widget-header user">Change Profile Photo</h3>
 						<form method="post" action="{% url 'Edit_Profile' user.id %}" enctype="multipart/form-data">{% csrf_token %}
-                            {% if person.avatar.url %}
-                               <img src="{{person.avatar.url}}"  onerror=this.src="/static/images/no.png"  class="rounded-circle" width="150" height="150" /><br/>
-                            {% endif %}
-                            {{form.image_tag}}
+                           
+                            
 							<input type="submit" class="btn btn-transparent" value="Save My Changes">
 						</form>
 					</div>

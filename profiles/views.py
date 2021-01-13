@@ -14,6 +14,10 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from .models import ads,User
 
+from .forms import eidit_profile_form
+
+from django.db.models  import Q
+
 
 
 
@@ -30,10 +34,9 @@ class dashboard(ListView):
 class Edit_Profile(UpdateView):
 
     template_name="user-profile.html"
-       
     model=User
-
-    fields=['avatar','username','email','first_name','last_name','phone']
+    
+    form_class=eidit_profile_form
 
     success_url='/profiles/dashboard'
 
@@ -56,6 +59,12 @@ class change_password(PasswordChangeView):
 class change_password_done(PasswordChangeView):
 
     template_name="change_password_done.html"
+
+def delete_avatar(request,pk):
+
+    User.objects.filter(Q(id=pk)&Q(username=request.user)).update(avatar=None)
+
+    return redirect("Edit_Profile",pk)
 
 
 
