@@ -38,7 +38,9 @@ class Edit_Profile(UpdateView):
     
     form_class=eidit_profile_form
 
-    success_url='/profiles/dashboard'
+    def get_success_url(self):
+        #i can't use redirect here
+        return reverse_lazy("Edit_Profile",args=[self.request.user.id])
 
     def get_queryset(self):
          qs=super().get_queryset()

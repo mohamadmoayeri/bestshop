@@ -6,7 +6,7 @@ from .forms import register,PasswordResetForm
 
 from django.urls import reverse_lazy
 
-from django.contrib.auth.models import User
+from profiles.models import User
 
 from django.contrib import messages
 

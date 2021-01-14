@@ -15,7 +15,7 @@
 							{{person.image_tag}}
 						</div>
 						<!-- User Name -->
-						<a href="{% url "delete_avatar" user.id %}">&nbsp&nbsp&nbspRemove Current Photo</a>
+						<a class="text-info" href="{% url "delete_avatar" user.id %}"><small>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRemove Current Photo</small></a>
 						<h5 class="text-center">{{person.first_name}} {{person.last_name}}</h5>
 					   
 					</div>
@@ -98,7 +98,7 @@
 					<div class="col-lg-6 col-md-6">
 						<!-- Change Password -->
 					<div class="widget change-password">
-				    {% load widget_tweaks %}
+				   
 						<h3 class="widget-header user">Change Profile Photo</h3>
 						<form method="post" action="{% url 'Edit_Profile' user.id %}" enctype="multipart/form-data">{% csrf_token %}
                            
