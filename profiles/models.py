@@ -10,6 +10,8 @@ from django.core.exceptions import ValidationError
 
 import re
 
+from django.urls import reverse
+
 import uuid
 
 from django.utils.html import mark_safe
@@ -27,7 +29,7 @@ class User(AbstractUser):
 
     avatar=models.ImageField(upload_to='files/avatars',null=True,blank=True)
 
-    phone=models.CharField(max_length=11,null=True,blank=True,validators=[VALID],help_text='example:09121112020')
+    phone=models.CharField(max_length=11,unique=True,null=True,blank=True,validators=[VALID],help_text='example:09121112020')
 
     g=[('m','Male'),('f','Female'),('c','Costum'),('p','Prefer Not To Say')]
 
@@ -62,17 +64,22 @@ class ads(models.Model):
 
     title=models.CharField(max_length=150,null=False,blank=False)
 
-    available=models.BooleanField(default=False)
+    price=models.SlugField(max_length=30,blank=False,null=False)
 
     c=[('electronics','Electronics'),('restaurants','Restaurants')]
 
     category=models.CharField(max_length=100,choices=c,default='electronics')
 
-    location=models.CharField(max_length=50)
+    available=models.BooleanField(default=False)
 
     created_at=models.DateTimeField(auto_now=False, auto_now_add=True)
 
     updatted_at=models.DateTimeField(auto_now=True, auto_now_add=False)
+
+
+    def get_absolute_url(self):
+        return reverse("upload-ads", args=[self.user])
+    
 
 
 

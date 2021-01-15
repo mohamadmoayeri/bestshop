@@ -19,8 +19,6 @@ from .forms import eidit_profile_form
 from django.db.models  import Q
 
 
-
-
 class dashboard(ListView):
 
     template_name='dashboard.html'
@@ -28,6 +26,18 @@ class dashboard(ListView):
     model=ads
 
     paginate_by=5
+
+
+    def get_queryset(self):
+         qs=super().get_queryset()
+         return qs.filter(user=self.request.user).order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({'u':User.objects.get(username=self.request.user)}) 
+        return context
+    
+    
 
 
 
@@ -45,22 +55,36 @@ class Edit_Profile(UpdateView):
     def get_queryset(self):
          qs=super().get_queryset()
          return qs.filter(username=self.request.user)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["person"] = User.objects.get(username=self.request.user)
+        context.update({'FORM':PasswordChangeForm(self.request.user)})
         return context
     
 
 class change_password(PasswordChangeView):
-    template_name="change_password.html"
+    template_name="user-profile.html"
 
     form_class=PasswordChangeForm
 
     success_url=reverse_lazy('change_password_done')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["person"] = User.objects.get(username=self.request.user)
+        context["form"] = eidit_profile_form(initial={'username':self.request.user,'email':self.request.user.email
+        ,'last_name':self.request.user.last_name,'first_name':self.request.user.first_name,'phone':self.request.user.phone})
+        print(PasswordChangeForm(self.request.user))
+        context.update({'FORM':PasswordChangeForm(self.request.user)})
+        return context
+    
+
+
 class change_password_done(PasswordChangeView):
 
     template_name="change_password_done.html"
+
 
 def delete_avatar(request,pk):
 
@@ -68,6 +92,40 @@ def delete_avatar(request,pk):
 
     return redirect("Edit_Profile",pk)
 
+
+
+class upload_ads(CreateView):
+
+    model=ads
+
+    template_name='upload-ads.html'
+
+    fields=['image','title','price','category','available']
+
+    success_url="/profiles/dashboard"
+
+
+    def get_queryset(self):
+        qs=super().get_queryset()
+        return qs.filter(user=self.request.user)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+    def form_valid(self,form):
+        user=User.objects.get(username=self.request.user)
+        form.instance.user=user
+        return super().form_valid(form)
+
+
+def delete_account(request):
+
+    ads.objects.filter(user=request.user).delete()
+
+    User.objects.filter(username=request.user).delete()
+
+    return redirect("/")
 
 
 
