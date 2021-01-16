@@ -25,7 +25,9 @@ urlpatterns = [
 
     path('accounts/',include('accounts.urls')),
 
-    path('profiles/',include('profiles.urls'))
+    path('profiles/',include('profiles.urls')),
+
+    path('stores/',include('stores.urls'))
 ]
 if settings.DEBUG:
     urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
