@@ -146,7 +146,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL='profiles.User'
 
-
+#REST FRAMEWORK SETTINGS
 
 REST_FRAMEWORK = {
     
@@ -156,6 +156,9 @@ REST_FRAMEWORK = {
     )
 
 }
+
+
+
 #social django
 #if we use the postgre
 #SOCIAL_AUTH_POSTGRES_JSONFIELD = True
@@ -172,8 +175,52 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_GITHUB_KEY = '10'
-SOCIAL_AUTH_GITHUB_SECRET = '10'
+SOCIAL_AUTH_GITHUB_KEY = 'c11fe72c75bc393377ac'
+SOCIAL_AUTH_GITHUB_SECRET = '2a23133bd092d1abc0757296b7f125fbcac91011'
 SOCIAL_AUTH_LOGIN_REDIRECT_URL='/'
 SOCIAL_AUTH_LOGIN_ERROR_URL='/accounts/login'
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#JWT SETTINGS
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY':SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
