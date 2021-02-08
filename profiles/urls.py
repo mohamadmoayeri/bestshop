@@ -15,7 +15,7 @@ urlpatterns = [
 
     path("delete_account",delete_account,name="delete_account"),
 
-    path("upload-ads/<slug:user>",upload_ads.as_view(),name="upload-ads"),
+    path("upload-ads/<str:user>",upload_ads.as_view(),name="upload-ads"),
 
     
 

@@ -89,8 +89,12 @@ WSGI_APPLICATION = 'bestshop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bestshop',
+        'PASSWORD':'1234',
+        'USER':'mhmd',
+        'HOST':'localhost',
+        'PORT':'3306',
     }
 }
 
@@ -166,7 +170,7 @@ REST_FRAMEWORK = {
 AUTHENTICATION_BACKENDS = (
     #'social_core.backends.open_id.OpenIdAuth',
     #'social_core.backends.google.GoogleOpenId',
-    #'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
     #'social_core.backends.google.GoogleOAuth',
     #'social_core.backends.twitter.TwitterOAuth',
     #'social_core.backends.yahoo.YahooOpenId',
@@ -177,6 +181,9 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_GITHUB_KEY = '10'
 SOCIAL_AUTH_GITHUB_SECRET = '10'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '10'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '10'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/userinfo.email','https://www.googleapis.com/auth/userinfo.profile']
 SOCIAL_AUTH_LOGIN_REDIRECT_URL='/'
 SOCIAL_AUTH_LOGIN_ERROR_URL='/accounts/login'
 
