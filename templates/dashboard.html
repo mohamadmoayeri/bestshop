@@ -23,8 +23,7 @@
             <ul>
               <li class="active"><a href="{% url 'upload-ads' user %}"><i class="fa fa-user"></i> Upload Ads</a></li>
               <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> Favourite Ads <span>5</span></a></li>
-              <li><a href="dashboard-archived-ads.html"><i class="fa fa-file-archive-o"></i>Archived Ads <span>12</span></a></li>
-              <li><a href="dashboard-pending-ads.html"><i class="fa fa-bolt"></i> Pending Approval<span>23</span></a></li>
+
               <li><a href="{% url 'logout' %}"><i class="fa fa-cog"></i> Logout</a></li>
               <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete
                   Account</a></li>
@@ -99,7 +98,7 @@
                         </a>
                       </li>
                       <li class="list-inline-item">
-                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href="">
+                        <a class="edit" data-toggle="tooltip" data-placement="top" title="Edit" href={% url 'edit_ads' i.id %}>
                           <i class="fa fa-pencil"></i>
                         </a>
                       </li>

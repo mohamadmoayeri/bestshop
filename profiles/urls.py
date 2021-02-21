@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import dashboard,Edit_Profile,change_password,change_password_done,delete_avatar,upload_ads,delete_account
+from .views import dashboard,Edit_Profile,change_password,change_password_done,delete_avatar,upload_ads,delete_account,edit_ads
 
 urlpatterns = [
     path("dashboard",dashboard.as_view(),name="dashboard"),
@@ -16,7 +16,8 @@ urlpatterns = [
     path("delete_account",delete_account,name="delete_account"),
 
     path("upload-ads/<str:user>",upload_ads.as_view(),name="upload-ads"),
-
+    
+    path("edit-ads/<uuid:id>",edit_ads.as_view(),name="edit_ads"),
     
 
 

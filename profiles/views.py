@@ -43,8 +43,9 @@ class dashboard(ListView):
 
 class Edit_Profile(UpdateView):
 
-    template_name="user-profile.html"
     model=User
+
+    template_name="user-profile.html"
     
     form_class=eidit_profile_form
 
@@ -95,7 +96,6 @@ def delete_avatar(request,pk):
 
 
 class upload_ads(CreateView):
-
     model=ads
 
     template_name='upload-ads.html'
@@ -106,17 +106,37 @@ class upload_ads(CreateView):
 
 
     def get_queryset(self):
+        
         qs=super().get_queryset()
         return qs.filter(user=self.request.user)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+  
 
     def form_valid(self,form):
         user=User.objects.get(username=self.request.user)
         form.instance.user=user
         return super().form_valid(form)
+
+class edit_ads(UpdateView):
+
+    model=ads
+
+    template_name='upload-ads.html'
+
+    success_url="/profiles/dashboard"
+
+
+    def get_queryset(self):
+        
+        qs=super().get_queryset()
+        return qs.filter(user=self.request.user)
+
+        
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({'ads_id':self.kwargs['id']}) 
+        return context
+
 
 
 def delete_account(request):

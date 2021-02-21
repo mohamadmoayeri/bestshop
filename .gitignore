@@ -1,5 +1,6 @@
 db.sqlite3
 
-*/__pycac__/*
+*/__pycache__/*
 
-files/*
+__pycache__
+files/
